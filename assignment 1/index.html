@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Draw a Point</title>
+</head>
+
+<body onload="main()">
+<canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+</canvas>
+    <script src="/lib/webgl-utils.js"></script>
+    <script src="/lib/webgl-debug.js"></script>
+    <script src="/lib/cuon-utils.js"></script>
+    <script src="asgn1.js"></script>
+
+
+    <!-- Welcome to Button Hell -->
+    <br>
+    <button id="clearCanvas">Clear Canvas</button><br>
+    <!-- Drawing Shape Type Buttons -->
+    <h2>
+        Drawing Mode:
+    </h2>
+    <button id="square">Squares</button>
+    <button id="triangle">Trianlges</button>
+    <button id="circle">Circle</button>
+    <br>
+    <h2>
+        Shape Color:
+    </h2>
+    <!-- RGB Sliders -->
+    <div>
+        <label for="red">Red</label>
+        <input type="range" id="red" name="red" min="0" max="255" value="0" />
+
+        <label for="green">Green</label>
+        <input type="range" id="green" name="green" min="0" max="255" value="0" />
+
+        <label for="blue">Blue</label>
+        <input type="range" id="blue" name="blue" min="0" max="255" value="0"/>
+    </div>
+    <!-- Size Sliders -->
+    <br>
+    <div>
+        <label for="size">Shape Size</label>
+        <input type="range" id="size" name="size" min="1" max="100" value="0"/>
+
+        <label for="circleSize">(Circles) Segment Count</label>
+        <input type="range" id="circleSize" name="circleSize" min="5" max="100" value="0"/>
+    </div>
+
+</body>
+</html>
