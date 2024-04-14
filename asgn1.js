@@ -20,6 +20,7 @@
 // Constants
 const POINT = 0;
 const TRIANGLE = 1;
+const CIRCLE = 2;
 
 // Global Variables
 let canvas;
@@ -30,6 +31,7 @@ let u_Size;
 var g_selectedColor = [255, 255, 255, 1];
 var g_selectedSize = 5;
 var g_selectedType=POINT;
+var g_segments = 10;
 
 function setupWebGL(){
     // Retrieve <canvas> element
@@ -76,7 +78,7 @@ function addActionsForHtmlUI(){
     //#region [[Button Events Shape Type]]
     document.getElementById('square').onclick = function(){g_selectedType=POINT};
     document.getElementById('triangle').onclick = function(){g_selectedType=TRIANGLE};
-    document.getElementById('circle').onclick = function(){console.log("circle")};
+    document.getElementById('circle').onclick = function(){g_selectedType=CIRCLE};
     //#endregion
 
     //#region [[Slider Events]]
@@ -90,6 +92,8 @@ function addActionsForHtmlUI(){
     greenSlider.addEventListener('input', function() {g_selectedColor[1] = greenSlider.value/255;});
 
     blueSlider.addEventListener('input', function() {g_selectedColor[2] = blueSlider.value/255;});
+
+    circleSize.addEventListener('input', function(){g_segments = circleSize.value});
     //#endregion
 
     //#region [[Clear canvas]]
@@ -141,8 +145,11 @@ var g_shapesList = []
     let point;
     if(g_selectedType==POINT){
         point = new Point();
-    }else{
+    }else if(g_selectedType==TRIANGLE){
         point = new Triangle();
+    }else{
+        point = new Circle();
+        point.segments= g_segments;
     }
     point.color = g_selectedColor.slice();
     point.position = ([x,y]);
