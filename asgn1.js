@@ -32,6 +32,9 @@ var g_selectedColor = [255, 255, 255, 1];
 var g_selectedSize = 5;
 var g_selectedType=POINT;
 var g_segments = 10;
+// drawing
+var berryList = [];
+
 
 function setupWebGL(){
     // Retrieve <canvas> element
@@ -75,6 +78,10 @@ function connectVariablesToGLSL(){
 }
 
 function addActionsForHtmlUI(){
+    //#region [[Button to draw berry]]
+    document.getElementById('berry').onclick =  function(){drawBerry()};
+    //#endregion
+
     //#region [[Button Events Shape Type]]
     document.getElementById('square').onclick = function(){g_selectedType=POINT};
     document.getElementById('triangle').onclick = function(){g_selectedType=TRIANGLE};
@@ -120,27 +127,42 @@ function addActionsForHtmlUI(){
     canvas.onmousedown = click;
     canvas.onmousemove = function(ev){if(ev.buttons == 1){click(ev)}};
 
-    // Set the color for clearing <canvas>
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0,0,0, 1.0);
     // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // var colorPicker = document.getElementById("canvas-color");
+    // colorPicker.addEventListener("input", function() {
+    //     var rgb = hexToRgb(colorPicker.value);
+    //     var clearColor = rgbToFloat(rgb.r, rgb.g, rgb.b);
+
+    //     gl.clearColor(clearColor[0], clearColor[1], clearColor[2], 1.0);
+    //     gl.clear(gl.COLOR_BUFFER_BIT);
+    // });
+
  }
+//  function rgbToFloat(r, g, b) {
+//     return [r / 255, g / 255, b / 255];
+// }
+//  function hexToRgb(hex) {
+//     var bigint = parseInt(hex.substring(1), 16);
+//     var r = (bigint >> 16) & 255;
+//     var g = (bigint >> 8) & 255;
+//     var b = bigint & 255;
+//     return { r, g, b };
+// }
 
 var g_shapesList = []
-
-
-//  var g_points = []; // The array for a mouse press
-//  var g_colors = []; // The array to store the color of a point
-//  var g_sizes = [];  // The array to store the sizes of a point
 
  function click(ev) {
     var x = ev.clientX; // x coordinate of a mouse pointer
     var y = ev.clientY; // y coordinate of a mouse pointer
+   // console.log(x + "  "+ y)
     var rect = ev.target.getBoundingClientRect();
 
     x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
     y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
-
+    //console.log(x + "  "+ y)
     // create a point 
     let point;
     if(g_selectedType==POINT){
@@ -152,6 +174,7 @@ var g_shapesList = []
         point.segments= g_segments;
     }
     point.color = g_selectedColor.slice();
+    console.log([x,y])
     point.position = ([x,y]);
     point.size = g_selectedSize;
     g_shapesList.push(point);
@@ -161,11 +184,28 @@ var g_shapesList = []
 
  function renderAllShapes(){
     // Clear <canvas>
+    gl.clearColor(0,0,0,1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     var len = g_shapesList.length;
 
     for(var i = 0; i < len; i++) {
+        //console.log(g_shapesList[i]);
         g_shapesList[i].render();
+    }
+}
+
+function renderBerry(){
+    // Clear <canvas>
+    // Set the color for clearing <canvas>
+    gl.clearColor(242/255, 230/255, 157/255, 1.0);
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    var len = berryList.length;
+    //console.log("Len berryList = "+len);
+    for(var i = 0; i < len; i++) {
+       // console.log(berryList[i]);
+        berryList[i].render();
     }
 }

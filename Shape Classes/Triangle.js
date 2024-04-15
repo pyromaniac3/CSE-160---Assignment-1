@@ -18,6 +18,7 @@ class Triangle {
 }
 
 function drawTriangle(vertices) {
+    //console.log(vertices);
     var n = 3; // The number of vertices
 
     // Create a buffer object
