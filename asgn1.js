@@ -28,7 +28,7 @@ let gl;
 let a_Position;
 let u_FragColor;
 let u_Size;
-var g_selectedColor = [255, 255, 255, 1];
+var g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 var g_selectedSize = 5;
 var g_selectedType=POINT;
 var g_segments = 10;
@@ -94,11 +94,11 @@ function addActionsForHtmlUI(){
     let blueSlider = document.getElementById('blue');
 
     // Add event listeners for slider input changes
-    redSlider.addEventListener('input', function() {g_selectedColor[0] = redSlider.value/255;});
+    redSlider.addEventListener('mouseup', function() {g_selectedColor[0] = redSlider.value/255;});
 
-    greenSlider.addEventListener('input', function() {g_selectedColor[1] = greenSlider.value/255;});
+    greenSlider.addEventListener('mouseup', function() {g_selectedColor[1] = greenSlider.value/255;});
 
-    blueSlider.addEventListener('input', function() {g_selectedColor[2] = blueSlider.value/255;});
+    blueSlider.addEventListener('mouseup', function() {g_selectedColor[2] = blueSlider.value/255;});
 
     circleSize.addEventListener('input', function(){g_segments = circleSize.value});
     //#endregion
@@ -174,7 +174,7 @@ var g_shapesList = []
         point.segments= g_segments;
     }
     point.color = g_selectedColor.slice();
-    console.log([x,y])
+    console.log(point.color);
     point.position = ([x,y]);
     point.size = g_selectedSize;
     g_shapesList.push(point);
