@@ -174,7 +174,6 @@ var g_shapesList = []
         point.segments= g_segments;
     }
     point.color = g_selectedColor.slice();
-    console.log(point.color);
     point.position = ([x,y]);
     point.size = g_selectedSize;
     g_shapesList.push(point);

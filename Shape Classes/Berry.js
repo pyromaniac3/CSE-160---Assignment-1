@@ -108,7 +108,6 @@ function drawBerry(){
 }
 
 function buildingList(array, color){
-    console.log(color);
     var len = array.length;
     for(var i=0; i<len;+i++){
         let it = new Berry();
